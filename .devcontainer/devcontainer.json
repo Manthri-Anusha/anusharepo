@@ -1,0 +1,17 @@
+{
+  "name": "Multi-Language Testing Environment",
+  "dockerComposeFile": ["docker-compose.yml"],
+  "service": "codespace",
+  "workspaceFolder": "/workspace",
+  "cpu": 4, // Allocate 4 CPUs
+  "memory": "8GB", // Allocate 8GB memory
+  "extensions": [
+    "ms-python.python", // Python extension
+    "vscjava.vscode-java-test", // Java extension
+    "dbaeumer.vscode-eslint" // JavaScript/TypeScript extension
+  ],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "postCreateCommand": "./setup.sh" // Script to install dependencies
+}
