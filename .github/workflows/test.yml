@@ -1,0 +1,31 @@
+name: Multi-Language Testing Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [python-tests, java-tests, js-tests]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Compose
+        run: |
+          cd .devcontainer
+          docker-compose up ${SERVICE} --abort-on-container-exit
+        env:
+          SERVICE: ${{ matrix.service }}
+
+      - name: Collect Test Results
+        run: |
+          mkdir -p reports
+          cp /workspace/reports/*.xml reports/
